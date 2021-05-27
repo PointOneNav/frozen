@@ -163,25 +163,43 @@ TEST_CASE("triple frozen map", "[map]") {
   REQUIRE(std::get<0>(range1) == ze_map.begin());
   REQUIRE(std::get<1>(range1) == ze_map.begin() + 1);
 
-  const auto lower_bound0 = ze_map.lower_bound(0);
-  REQUIRE(lower_bound0 == ze_map.end());
-
   for (auto val : ze_map) {
     const auto lower_bound = ze_map.lower_bound(std::get<0>(val));
     REQUIRE(lower_bound == ze_map.find(std::get<0>(val)));
   }
 
-  const auto lower_bound2 = ze_map.lower_bound(40);
-  REQUIRE(lower_bound2 == ze_map.end());
+  auto lower_bound = ze_map.lower_bound(0);
+  REQUIRE(lower_bound == ze_map.begin());
 
-  const auto upper_bound0 = ze_map.upper_bound(0);
-  REQUIRE(upper_bound0 == ze_map.end());
+  lower_bound = ze_map.lower_bound(5);
+  REQUIRE(lower_bound == ze_map.begin());
 
-  const auto upper_bound1 = ze_map.upper_bound(10);
-  REQUIRE(upper_bound1 == (ze_map.begin() + 1));
+  lower_bound = ze_map.lower_bound(20);
+  REQUIRE(lower_bound == ze_map.begin() + 1);
 
-  const auto upper_bound2 = ze_map.upper_bound(40);
-  REQUIRE(upper_bound2 == ze_map.end());
+  lower_bound = ze_map.lower_bound(25);
+  REQUIRE(lower_bound == ze_map.begin() + 2);
+
+  lower_bound = ze_map.lower_bound(30);
+  REQUIRE(lower_bound == ze_map.begin() + 2);
+
+  lower_bound = ze_map.lower_bound(40);
+  REQUIRE(lower_bound == ze_map.end());
+
+  auto upper_bound = ze_map.upper_bound(0);
+  REQUIRE(upper_bound == ze_map.begin());
+
+  upper_bound = ze_map.upper_bound(10);
+  REQUIRE(upper_bound == ze_map.begin() + 1);
+
+  upper_bound = ze_map.upper_bound(15);
+  REQUIRE(upper_bound == ze_map.begin() + 1);
+
+  upper_bound = ze_map.upper_bound(30);
+  REQUIRE(upper_bound == ze_map.end());
+
+  upper_bound = ze_map.upper_bound(40);
+  REQUIRE(upper_bound == ze_map.end());
 
   auto const begin = ze_map.begin(), end = ze_map.end();
   REQUIRE((begin + ze_map.size()) == end);
