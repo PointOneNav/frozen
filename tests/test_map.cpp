@@ -316,6 +316,8 @@ TEST_CASE("Modifiable frozen::map", "[map]") {
   }
 
   SECTION("Lookup failure") {
+    REQUIRE(frozen_map.find(3) == frozen_map.end());
+    REQUIRE_THROWS_AS(frozen_map.at(3), std::out_of_range);
     REQUIRE(frozen_map.find(5) == frozen_map.end());
     REQUIRE_THROWS_AS(frozen_map.at(5), std::out_of_range);
   }

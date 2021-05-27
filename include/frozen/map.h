@@ -179,7 +179,7 @@ public:
  private:
   template <class This>
   static inline constexpr auto& at_impl(This&& self, Key const &key) {
-    auto where = self.lower_bound(key);
+    auto where = self.find(key);
     if (where != self.end())
       return where->second;
     else
