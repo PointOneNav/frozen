@@ -36,10 +36,11 @@ namespace frozen {
 namespace impl {
 
 template <class Comparator> class CompareKey {
-
-  Comparator const comparator_;
+  Comparator comparator_;
 
 public:
+  constexpr CompareKey() = default;
+
   constexpr CompareKey(Comparator const &comparator)
       : comparator_(comparator) {}
 
