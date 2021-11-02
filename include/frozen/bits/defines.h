@@ -55,4 +55,8 @@
   #define FROZEN_LETITGO_HAS_CHAR8T
 #endif
 
+#ifndef FROZEN_SIZE_T
+  #define FROZEN_SIZE_T std::size_t
+#endif
+
 #endif // FROZEN_LETITGO_DEFINES_H

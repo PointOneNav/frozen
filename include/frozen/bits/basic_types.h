@@ -23,6 +23,7 @@
 #ifndef FROZEN_LETITGO_BASIC_TYPES_H
 #define FROZEN_LETITGO_BASIC_TYPES_H
 
+#include "frozen/bits/defines.h"
 #include "frozen/bits/exceptions.h"
 
 #include <array>
@@ -40,7 +41,7 @@ struct ignored_arg {};
 template <class T, std::size_t N>
 class cvector {
   T data_[N] = {}; // zero-initialization for scalar type T, default-initialized otherwise
-  std::size_t dsize_ = 0;
+  FROZEN_SIZE_T dsize_ = 0;
 
   template <class Iter>
   constexpr cvector(Iter iter, size_t size)
@@ -60,7 +61,7 @@ public:
   using const_iterator = const_pointer;
   using reverse_iterator = std::reverse_iterator<iterator>;
   using const_reverse_iterator = std::reverse_iterator<const_iterator>;
-  using size_type = std::size_t;
+  using size_type = FROZEN_SIZE_T;
   using difference_type = std::ptrdiff_t;
 
   // Constructors
@@ -359,7 +360,7 @@ public:
   using const_iterator = const_pointer;
   using reverse_iterator = std::reverse_iterator<iterator>;
   using const_reverse_iterator = std::reverse_iterator<const_iterator>;
-  using size_type = std::size_t;
+  using size_type = FROZEN_SIZE_T;
   using difference_type = std::ptrdiff_t;
 
   // Constructors
@@ -449,7 +450,7 @@ public:
   using const_iterator = const_pointer;
   using reverse_iterator = std::reverse_iterator<iterator>;
   using const_reverse_iterator = std::reverse_iterator<const_iterator>;
-  using size_type = std::size_t;
+  using size_type = FROZEN_SIZE_T;
   using difference_type = std::ptrdiff_t;
 
   // Constructors
