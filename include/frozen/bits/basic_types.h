@@ -23,11 +23,13 @@
 #ifndef FROZEN_LETITGO_BASIC_TYPES_H
 #define FROZEN_LETITGO_BASIC_TYPES_H
 
+#include "frozen/bits/defines.h"
 #include "frozen/bits/exceptions.h"
 
 #include <array>
 #include <utility>
 #include <iterator>
+#include <limits>
 #include <string>
 
 namespace frozen {
@@ -39,8 +41,11 @@ struct ignored_arg {};
 
 template <class T, std::size_t N>
 class cvector {
+  // Make sure custom `FROZEN_SIZE_T` is big enough for templated usage.
+  static_assert(std::numeric_limits<FROZEN_SIZE_T>::max() >= N);
+
   T data_[N] = {}; // zero-initialization for scalar type T, default-initialized otherwise
-  std::size_t dsize_ = 0;
+  FROZEN_SIZE_T dsize_ = 0;
 
   template <class Iter>
   constexpr cvector(Iter iter, size_t size)
@@ -60,7 +65,7 @@ public:
   using const_iterator = const_pointer;
   using reverse_iterator = std::reverse_iterator<iterator>;
   using const_reverse_iterator = std::reverse_iterator<const_iterator>;
-  using size_type = std::size_t;
+  using size_type = FROZEN_SIZE_T;
   using difference_type = std::ptrdiff_t;
 
   // Constructors
@@ -154,7 +159,7 @@ public:
 
     // Shift the existing values.
     iterator start = const_cast<iterator>(pos);
-    size_type num_to_shift = end() - start;
+    int64_t num_to_shift = (int64_t)(end() - start);
     for (iterator src = start + (num_to_shift - 1), dest = src + count;
          src >= start;
          --src, --dest) {
@@ -185,7 +190,7 @@ public:
 
     // Shift the existing values.
     iterator start = const_cast<iterator>(pos);
-    size_type num_to_shift = end() - start;
+    int64_t num_to_shift = (int64_t)(end() - start);
     for (iterator src = start + (num_to_shift - 1), dest = src + count;
          src >= start;
          --src, --dest) {
@@ -359,7 +364,7 @@ public:
   using const_iterator = const_pointer;
   using reverse_iterator = std::reverse_iterator<iterator>;
   using const_reverse_iterator = std::reverse_iterator<const_iterator>;
-  using size_type = std::size_t;
+  using size_type = FROZEN_SIZE_T;
   using difference_type = std::ptrdiff_t;
 
   // Constructors
@@ -449,7 +454,7 @@ public:
   using const_iterator = const_pointer;
   using reverse_iterator = std::reverse_iterator<iterator>;
   using const_reverse_iterator = std::reverse_iterator<const_iterator>;
-  using size_type = std::size_t;
+  using size_type = FROZEN_SIZE_T;
   using difference_type = std::ptrdiff_t;
 
   // Constructors

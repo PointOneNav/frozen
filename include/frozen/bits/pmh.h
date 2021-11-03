@@ -54,7 +54,7 @@ struct pmh_buckets {
   // TODO: Come up with justification for this, should it not be O(log M)?
   static constexpr auto bucket_max = 2 * (1u << (log(M) / 2));
 
-  using bucket_t = cvector<std::size_t, bucket_max>;
+  using bucket_t = cvector<FROZEN_SIZE_T, bucket_max>;
   carray<bucket_t, M> buckets;
   uint64_t seed;
 
@@ -153,7 +153,7 @@ template <std::size_t M, class Hasher>
 struct pmh_tables {
   uint64_t first_seed_;
   carray<seed_or_index, M> first_table_;
-  carray<std::size_t, M> second_table_;
+  carray<FROZEN_SIZE_T, M> second_table_;
   Hasher hash_;
 
   // Looks up a given key, to find its expected index in carray<Item, N>
@@ -183,8 +183,8 @@ pmh_tables<M, Hash> constexpr make_pmh_tables(const carray<Item, N> &
   carray<seed_or_index, M> G; // Default constructed to "index 0"
 
   // H becomes the second hash table in the resulting pmh function
-  constexpr std::size_t UNUSED = std::numeric_limits<std::size_t>::max();
-  carray<std::size_t, M> H;
+  constexpr FROZEN_SIZE_T UNUSED = std::numeric_limits<FROZEN_SIZE_T>::max();
+  carray<FROZEN_SIZE_T, M> H;
   H.fill(UNUSED);
 
   // Step 3: Map the items in buckets into hash tables.

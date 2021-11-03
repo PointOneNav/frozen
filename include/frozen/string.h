@@ -40,7 +40,7 @@ class basic_string {
   using chr_t = _CharT;
 
   chr_t const *data_;
-  std::size_t size_;
+  FROZEN_SIZE_T size_;
 
 public:
   template <std::size_t N>
