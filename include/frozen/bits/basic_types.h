@@ -29,6 +29,7 @@
 #include <array>
 #include <utility>
 #include <iterator>
+#include <limits>
 #include <string>
 
 namespace frozen {
@@ -40,6 +41,9 @@ struct ignored_arg {};
 
 template <class T, std::size_t N>
 class cvector {
+  // Make sure custom `FROZEN_SIZE_T` is big enough for templated usage.
+  static_assert(std::numeric_limits<FROZEN_SIZE_T>::max() >= N);
+
   T data_[N] = {}; // zero-initialization for scalar type T, default-initialized otherwise
   FROZEN_SIZE_T dsize_ = 0;
 
