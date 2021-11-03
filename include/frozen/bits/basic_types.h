@@ -155,7 +155,7 @@ public:
 
     // Shift the existing values.
     iterator start = const_cast<iterator>(pos);
-    size_type num_to_shift = end() - start;
+    int64_t num_to_shift = (int64_t)(end() - start);
     for (iterator src = start + (num_to_shift - 1), dest = src + count;
          src >= start;
          --src, --dest) {
@@ -186,7 +186,7 @@ public:
 
     // Shift the existing values.
     iterator start = const_cast<iterator>(pos);
-    size_type num_to_shift = end() - start;
+    int64_t num_to_shift = (int64_t)(end() - start);
     for (iterator src = start + (num_to_shift - 1), dest = src + count;
          src >= start;
          --src, --dest) {
