@@ -133,8 +133,8 @@ public:
   constexpr       reference back() { return data_[dsize_ - 1]; }
   constexpr const_reference back() const { return data_[dsize_ - 1]; }
 
-  constexpr       value_type* data() noexcept { return data; }
-  constexpr const value_type* data() const noexcept { return data; }
+  constexpr       value_type* data() noexcept { return data_; }
+  constexpr const value_type* data() const noexcept { return data_; }
 
   // Modifiers
   constexpr void push_back(const T & a) { data_[dsize_++] = a; }
