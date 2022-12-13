@@ -141,6 +141,12 @@ public:
   constexpr void push_back(T && a) { data_[dsize_++] = std::move(a); }
   constexpr void pop_back() { --dsize_; }
 
+  template <class... Args>
+  constexpr void emplace_back(Args &&...args) {
+    new (data_ + dsize_) T(std::forward<Args>(args)...);
+    dsize_++;
+  }
+
   constexpr void clear() { dsize_ = 0; }
 
   constexpr iterator insert(const_iterator pos, const_reference value) {
@@ -248,6 +254,19 @@ public:
 
     for (size_type i = dsize_; i < count; ++i) {
       data_[i] = value;
+    }
+
+    dsize_ = count;
+  }
+
+  template <class... Args>
+  constexpr void resize_emplace(size_type count, Args &&...args) {
+    if (count > N) {
+      FROZEN_THROW_OR_ABORT(std::length_error("Requested size (" + std::to_string(count) + ") too large (max " + std::to_string(N) + ')'));
+    }
+
+    for (size_type i = dsize_; i < count; ++i) {
+      emplace_back(std::forward<Args>(args)...);
     }
 
     dsize_ = count;
