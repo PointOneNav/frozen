@@ -143,6 +143,10 @@ public:
 
   template <class... Args>
   constexpr void emplace_back(Args &&...args) {
+    if (dsize_ == N) {
+      FROZEN_THROW_OR_ABORT(std::out_of_range("Emplacing into full vector"));
+    }
+    data_[dsize_].~T();
     new (data_ + dsize_) T(std::forward<Args>(args)...);
     dsize_++;
   }
