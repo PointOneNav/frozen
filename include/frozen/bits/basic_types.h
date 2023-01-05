@@ -44,7 +44,7 @@ class cvector {
   // Make sure custom `FROZEN_SIZE_T` is big enough for templated usage.
   static_assert(std::numeric_limits<FROZEN_SIZE_T>::max() >= N);
 
-  T data_[N] = {}; // zero-initialization for scalar type T, default-initialized otherwise
+  T data_[N];
   FROZEN_SIZE_T dsize_ = 0;
 
   template <class Iter>
@@ -143,6 +143,18 @@ public:
 
   template <class... Args>
   constexpr void emplace_back(Args &&...args) {
+    if (dsize_ == N) {
+      FROZEN_THROW_OR_ABORT(std::out_of_range("Emplacing into full vector"));
+    }
+    // Since this class declares it's member data as `T data_[N];` the data will
+    // always have valid constructed instances. Since the placement new operator
+    // won't implicitly call the the destructor, it needs to be called
+    // explicitly. This isn't needed for the insert/push operations since they
+    // use constructors that will implicitly call the destructor.
+    //
+    // This is OK for primitives as well since the compiler has a special case
+    // to NOP this operation if a template calls the destructor for a primitive.
+    data_[dsize_].~T();
     new (data_ + dsize_) T(std::forward<Args>(args)...);
     dsize_++;
   }
