@@ -146,6 +146,11 @@ public:
     if (dsize_ == N) {
       FROZEN_THROW_OR_ABORT(std::out_of_range("Emplacing into full vector"));
     }
+    // Since this class declares it's member data as `T data_[N];` the data will
+    // always have valid constructed instances. Since the placement new operator
+    // won't implicitly call the the destructor, it needs to be called
+    // explicitly. This isn't needed for the insert/push operations since they
+    // use constructors that will implicitly call the destructor.
     data_[dsize_].~T();
     new (data_ + dsize_) T(std::forward<Args>(args)...);
     dsize_++;
