@@ -151,6 +151,9 @@ public:
     // won't implicitly call the the destructor, it needs to be called
     // explicitly. This isn't needed for the insert/push operations since they
     // use constructors that will implicitly call the destructor.
+    //
+    // This is OK for primitives as well since the compiler has a special case
+    // to NOP this operation if a template calls the destructor for a primitive.
     data_[dsize_].~T();
     new (data_ + dsize_) T(std::forward<Args>(args)...);
     dsize_++;
