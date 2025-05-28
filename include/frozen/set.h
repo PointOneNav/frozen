@@ -28,6 +28,7 @@
 #include "frozen/bits/constexpr_assert.h"
 #include "frozen/bits/version.h"
 
+#include <functional>
 #include <utility>
 
 namespace frozen {
