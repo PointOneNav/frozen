@@ -31,8 +31,8 @@
 #include "frozen/bits/version.h"
 #include "frozen/random.h"
 
+#include <functional> // For std::equal_to
 #include <tuple>
-#include <functional>
 
 namespace frozen {
 
