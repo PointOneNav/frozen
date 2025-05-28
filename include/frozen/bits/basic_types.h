@@ -44,7 +44,7 @@ class cvector {
   // Make sure custom `FROZEN_SIZE_T` is big enough for templated usage.
   static_assert(std::numeric_limits<FROZEN_SIZE_T>::max() >= N);
 
-  T data_[N];
+  T data_[N] = {};
   FROZEN_SIZE_T dsize_ = 0;
 
   template <class Iter>
