@@ -29,6 +29,7 @@
 #include "frozen/bits/exceptions.h"
 #include "frozen/bits/version.h"
 
+#include <functional>
 #include <utility>
 
 namespace frozen {
