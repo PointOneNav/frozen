@@ -29,7 +29,7 @@
 #include "frozen/bits/exceptions.h"
 #include "frozen/bits/version.h"
 
-#include <functional>
+#include <functional> // For std::less
 #include <utility>
 
 namespace frozen {

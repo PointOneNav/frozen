@@ -28,7 +28,7 @@
 #include "frozen/bits/constexpr_assert.h"
 #include "frozen/bits/version.h"
 
-#include <functional>
+#include <functional> // For std::less
 #include <utility>
 
 namespace frozen {
