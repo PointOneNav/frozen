@@ -23,6 +23,8 @@
 #ifndef FROZEN_LETITGO_DEFINES_H
 #define FROZEN_LETITGO_DEFINES_H
 
+#include <cstddef> // For std::size_t
+
 #if defined(_MSVC_LANG) && !(defined(__EDG__) && defined(__clang__)) // TRANSITION, VSO#273681
   #define FROZEN_LETITGO_IS_MSVC
 #endif
