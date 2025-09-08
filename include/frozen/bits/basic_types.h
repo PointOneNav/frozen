@@ -27,6 +27,7 @@
 #include "frozen/bits/exceptions.h"
 
 #include <array>
+#include <cstdint>
 #include <utility>
 #include <iterator>
 #include <limits>
